@@ -9,105 +9,124 @@
 public class LinkedList<T> implements List
 {
 	Node head;
-	Node first;
 	int size;
 
 	public void add(Object item)
 	{
-		Node<Object> h = head;
-		Node<Object> newNode = new Node<>(item);
-		head = newNode;
-
-		if(h == null)
+		if(head == null)
 		{
-			first = newNode;
+			head = new Node(item);
 		}
-		else
+		Node current = head;
+		while(current.next != null)
 		{
-			h.next = newNode;
+			 current = current.next;
 		}
+		current.next = new Node(item);
 		size++;
 	}
+
 	public void add(int pos, Object item)
 	{
+//		System.out.println("pos " + pos + " size " + size);
 		if(pos > size)
 		{
 			throw new IllegalArgumentException("position out of bounds");
 		}
-		Node<Object> h = head;
-		Node<Object> newNode = new Node<>(item);
-		System.out.println(size + " " + pos);
-		if(h == null)
+		//prepend
+		if(pos == 0)
 		{
-			first = newNode;
+			Node newHead = new Node(item);
+			newHead.next = head;
+			head = newHead;
+		}
+		else if(pos == size)
+		{
+			Node current = head;
+			Node toAdd = new Node(item);
+
+			for(int i = 0; i < pos-1; i++)
+			{
+				current = current.next;
+			}
+
+			current.next = toAdd;
 		}
 		else
 		{
-			Node temp = first;
+			Node current = head;
+			Node toAdd = new Node(item);
+
 			for(int i = 0; i < pos-1; i++)
 			{
-				System.out.println(temp.data);
-				temp = temp.next;
+				current = current.next;
 			}
-			temp.next = newNode;
+
+			toAdd.next = current.next.next;
+			current.next = toAdd;
 		}
 		size++;
 	}
+
 	public T get(int pos)
 	{
 		if(pos > size)
 		{
 			throw new IllegalArgumentException("position out of bounds");
 		}
-		Node temp = first;
-		for(int i = 0; i < pos; i++)
+		Node current = head;
+		for(int i = 0; i > pos; i++)
 		{
-			temp = temp.next;
+			current = current.next;
 		}
-		return (T) temp.data;
+		return (T) current.data;
 	}
 
 	public T remove(int pos)
 	{
-		Node temp = null;
+//		System.out.println("removing " + pos + " " + size);
 		if(pos > size)
 		{
 			throw new IllegalArgumentException("position out of bounds");
 		}
 
-		//if we  are removing the first node
+		if(head == null)
+		{
+			return null;
+		}
+
+		Node toReturn;
+		Node current = head;
+
+		if(pos == size)
+		{
+			for(int i = 0; i < pos-1; i++)
+			{
+				current = current.next;
+			}
+			toReturn = current.next;
+			current.next = null;
+			size--;
+			return (T) toReturn.data;
+		}
 		if(pos == 0)
 		{
-			temp = first;
-			first.next = first;
+			toReturn = head;
+			head = head.next;
 			size--;
-			return (T) first.data;
+			return (T) toReturn.data;
 		}
 
-		//if we are  removing the head
-		if(pos == size - 1)
+		for(int i = 0; i < pos-1; i++)
 		{
-			Node secondTemp = head;
-			for(int i = 0; i < pos; i++)
-			{
-				temp = temp.next;
-			}
-
-			head = temp;
-			size--;
-			return (T) secondTemp.data;
-
+			current = current.next;
 		}
-
-		for(int i = 0; i < pos; i++)
-		{
-			temp = temp.next;
-		}
-		Node secondTemp = temp.next;
+		toReturn = current.next;
+		current.next = current.next.next;
 		size--;
-		temp.next  = temp.next.next;
-		return (T) secondTemp.data;
+		return (T) toReturn.data;
 	}
+
 	public int size()
 	{
 		return size;

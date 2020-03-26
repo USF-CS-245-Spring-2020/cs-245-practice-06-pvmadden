@@ -21,9 +21,13 @@ public class Practice06Test {
 		String sample = "Hello world!";
 		
 		try {
+			System.out.println("adding sample");
 			list.add(sample);
+			System.out.println(list.get(0));
 			if (list.get(0).equals(sample)) {
+				System.out.println(list.get(0).equals(sample));
 				list.remove(0);
+				System.out.println(list.get(0));
 				if (list.size() == 0) {
 					return true;
 				}
@@ -132,7 +136,7 @@ public class Practice06Test {
 		} else {
 			System.out.println("[    ] Failed empty original container test (LinkedList)");
 		}
-		
+
 		list = new ArrayList<String>();
 		if (basicStoreRemoveTest(list)) {
 			grade += 10;
@@ -147,7 +151,7 @@ public class Practice06Test {
 		} else {
 			System.out.println("[    ] Failed basic store/remove test (LinkedList)");
 		}
-		
+
 		list = new ArrayList<String>();
 		if (storeManyTest(list)) {
 			grade += 20;
@@ -162,7 +166,7 @@ public class Practice06Test {
 		} else {
 			System.out.println("[    ] Failed multiple store/retrieve/remove test (LinkedList)");
 		}
-		
+
 		list = new ArrayList<String>();
 		if (increaseCapacityTest(list)) {
 			grade += 20;
@@ -170,7 +174,7 @@ public class Practice06Test {
 		} else {
 			System.out.println("[    ] Failed increase capacity test (ArrayList only)");
 		}
-		
+
 		List<Integer> timinglist = new ArrayList<Integer>();
 		long time = timingTest(timinglist);
 		if (time < 20) {

@@ -14,6 +14,7 @@ public class Node<T>
 
 	public Node(T d)
 	{
+
 		data  = d;
 	}
 }
