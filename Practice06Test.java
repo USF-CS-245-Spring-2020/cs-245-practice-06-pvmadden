@@ -30,6 +30,7 @@ public class Practice06Test {
 			}
 			return false;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -46,6 +47,7 @@ public class Practice06Test {
 			}
 			
 			if (list.size() != work.length) {
+				System.out.println("first issue");
 				return false;
 			}
 			
@@ -55,6 +57,8 @@ public class Practice06Test {
 			}
 			return true;
 		} catch (Exception e) {
+			System.out.println("third issue");
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -86,6 +90,7 @@ public class Practice06Test {
 			}
 			return false;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -119,6 +124,7 @@ public class Practice06Test {
 		} else {
 			System.out.println("[    ] Failed empty original container test (ArrayList)");
 		}
+
 		list = new LinkedList<String>();
 		if (emptyInitialTest(list)) {
 			grade += 5;
